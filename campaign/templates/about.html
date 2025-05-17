@@ -1,0 +1,52 @@
+{% extends "base.html" %}
+{% load static %}
+{% block content %}
+<section class="py-20 bg-gradient-to-b from-white via-gray-50 to-blue-50">
+  <div class="container mx-auto px-6 max-w-screen-xl">
+    
+    <!-- Candidate Header -->
+    <div class="text-center mb-16">
+      <h1 class="text-5xl font-extrabold text-blue-900 leading-tight">{{ candidate_name }}</h1>
+      <p class="text-2xl text-gray-600 mt-4 italic text-red-600 font-bold">Running for {{ position }}</p>
+    </div>
+
+    <!-- Profile and Bio -->
+    <div class="flex flex-col md:flex-row items-center gap-10 mb-20">
+      <div class="flex justify-center w-full md:w-1/2">
+        <img src="{% static 'images/4.jpeg' %}" alt="{{ candidate_name }}" class="rounded-xl shadow-xl w-full max-w-sm hover:scale-105 transform transition duration-500">
+      </div>
+      <div class="md:w-1/2">
+        <h2 class="text-3xl font-semibold text-blue-800 mb-6">Biography</h2>
+        <div class="prose prose-lg max-w-none text-gray-800">
+          <p>Born and raised in our community, {{ candidate_name }} has devoted their life to public service. With a strong background in education and small business, they bring a grounded, real-world understanding of our community’s needs.</p>
+          <p>After graduating from Local High School, {{ candidate_name }} earned a degree in Political Science from State University, later serving as a civics teacher and eventually launching a local small business.</p>
+          <p>They live here with their spouse and children, staying active in the PTA, food bank initiatives, and youth sports mentoring programs.</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Why I'm Running -->
+    <div class="bg-white p-10 md:p-14 rounded-3xl shadow-2xl mb-20">
+      <h2 class="text-3xl font-semibold text-blue-800 mb-6 text-center">Why I'm Running</h2>
+      <div class="prose prose-lg max-w-none mx-auto text-gray-800">
+        <p>I’m running for {{ position }} because we need leadership that puts people over politics. Our district deserves proactive, compassionate representation—not more of the status quo.</p>
+        <p>My campaign is anchored in three core values:</p>
+        <ul>
+          <li><strong>Transparency:</strong> Hosting open forums and providing access to real-time decisions.</li>
+          <li><strong>Accountability:</strong> Being answerable to all constituents, not special interest groups.</li>
+          <li><strong>Progress:</strong> Building practical, bipartisan solutions for long-term prosperity.</li>
+        </ul>
+        <p>Together, let’s build a fairer, stronger future where everyone has a voice.</p>
+      </div>
+    </div>
+
+    <!-- CTA -->
+    <div class="text-center">
+      <a href="{% url 'policies' %}" class="inline-block bg-blue-800 hover:bg-blue-900 text-white px-10 py-4 rounded-xl font-semibold shadow-lg transition-all duration-300">
+        View My Policy Positions
+      </a>
+    </div>
+
+  </div>
+</section>
+{% endblock %}

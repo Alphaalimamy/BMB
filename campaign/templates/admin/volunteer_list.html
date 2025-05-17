@@ -1,0 +1,32 @@
+{% extends "admin/base_admin.html" %}
+
+{% block admin_content %}
+<div class="bg-white p-6 rounded-lg shadow-md">
+    <h1 class="text-2xl font-bold text-blue-800 mb-6">Volunteers</h1>
+    
+    <div class="overflow-x-auto">
+        <table class="min-w-full bg-white">
+            <thead>
+                <tr class="bg-gray-100">
+                    <th class="py-3 px-4 text-left">Name</th>
+                    <th class="py-3 px-4 text-left">Email</th>
+                    <th class="py-3 px-4 text-left">Phone</th>
+                    <th class="py-3 px-4 text-left">Location</th>
+                    <th class="py-3 px-4 text-left">Signed Up</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for volunteer in volunteers %}
+                <tr class="border-t border-gray-200 hover:bg-gray-50">
+                    <td class="py-3 px-4">{{ volunteer.first_name }} {{ volunteer.last_name }}</td>
+                    <td class="py-3 px-4">{{ volunteer.email }}</td>
+                    <td class="py-3 px-4">{{ volunteer.phone }}</td>
+                    <td class="py-3 px-4">{{ volunteer.city }}, {{ volunteer.state }}</td>
+                    <td class="py-3 px-4">{{ volunteer.created_at|date:"M d, Y" }}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+{% endblock %}

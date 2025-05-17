@@ -1,0 +1,48 @@
+{% extends "admin/base_admin.html" %}
+{% block admin_content %}  {# Changed from content to admin_content #}
+<div class="bg-white p-6 rounded-lg shadow-md mx-4">  {# Reduced padding and added mx-4 #}
+    <h1 class="text-2xl font-bold text-blue-800 mb-6">Admin Dashboard</h1>
+    
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">  {# Reduced gap #}
+        <!-- Blog Posts Card -->
+        <div class="bg-blue-50 p-4 rounded-lg hover:shadow-md transition-shadow border border-blue-100">
+            <a href="{% url 'blog_post_list' %}" class="block">  {# Made entire card clickable #}
+                <h2 class="text-lg font-semibold text-blue-800 mb-2">Blog Posts</h2>
+                <p class="text-3xl font-bold">{{ blog_count }}</p>
+            </a>
+        </div>
+        
+        <!-- Events Card -->
+        <div class="bg-blue-50 p-4 rounded-lg hover:shadow-md transition-shadow border border-blue-100">
+            <a href="{% url 'event_list' %}" class="block">
+                <h2 class="text-lg font-semibold text-blue-800 mb-2">Events</h2>
+                <p class="text-3xl font-bold">{{ event_count }}</p>
+            </a>
+        </div>
+        
+        <!-- Policies Card -->
+        <div class="bg-blue-50 p-4 rounded-lg hover:shadow-md transition-shadow border border-blue-100">
+            <a href="{% url 'policy_list' %}" class="block">
+                <h2 class="text-lg font-semibold text-blue-800 mb-2">Policies</h2>
+                <p class="text-3xl font-bold">{{ policy_count }}</p>
+            </a>
+        </div>
+        
+        <!-- Volunteers Card -->
+        <div class="bg-blue-50 p-4 rounded-lg hover:shadow-md transition-shadow border border-blue-100">
+            <a href="{% url 'volunteer_list' %}" class="block">
+                <h2 class="text-lg font-semibold text-blue-800 mb-2">Volunteers</h2>
+                <p class="text-3xl font-bold">{{ volunteer_count }}</p>
+            </a>
+        </div>
+        
+        <!-- Contacts Card -->
+        <div class="bg-blue-50 p-4 rounded-lg hover:shadow-md transition-shadow border border-blue-100">
+            <a href="{% url 'contact_list' %}" class="block">
+                <h2 class="text-lg font-semibold text-blue-800 mb-2">Contacts</h2>
+                <p class="text-3xl font-bold">{{ contact_count }}</p>
+            </a>
+        </div>
+    </div>
+</div>
+{% endblock %}

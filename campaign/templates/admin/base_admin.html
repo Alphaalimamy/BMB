@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Panel | {% block title %}{% endblock %}</title>
+    <!-- Include your CSS and JS files here -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        .submenu {
+            display: none;
+            padding-left: 1rem;
+        }
+        .has-submenu:hover .submenu {
+            display: block;
+        }
+    </style>
+</head>
+<body class="bg-gray-100">
+    <div class="flex h-screen">
+        <!-- Enhanced Sidebar with Create Actions -->
+        <div class="w-64 bg-blue-800 text-white p-4">
+            <h1 class="text-2xl font-bold mb-8">Admin Panel</h1>
+            
+            <nav>
+                <ul class="space-y-2">
+                    <li>
+                        <a href="{% url 'admin_dashboard' %}" class="flex items-center py-2 px-4 rounded hover:bg-blue-700">
+                            <i class="fas fa-tachometer-alt mr-2"></i> Dashboard
+                        </a>
+                    </li>
+                    
+                    <!-- Blog Section with Create -->
+                    <li class="has-submenu">
+                        <div class="flex justify-between items-center py-2 px-4 rounded hover:bg-blue-700 cursor-pointer">
+                            <span class="flex items-center">
+                                <i class="fas fa-blog mr-2"></i> Blog Posts
+                            </span>
+                            <i class="fas fa-chevron-down text-xs"></i>
+                        </div>
+                        <ul class="submenu">
+                            <li>
+                                <a href="{% url 'blog_post_list' %}" class="block py-2 px-4 rounded hover:bg-blue-600">
+                                    <i class="fas fa-list mr-2"></i> All Posts
+                                </a>
+                            </li>
+                            <li>
+                                <a href="{% url 'blog_post_create' %}" class="block py-2 px-4 rounded hover:bg-blue-600">
+                                    <i class="fas fa-plus mr-2"></i> Create New
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
+                    
+                    <!-- Events Section with Create -->
+                    <li class="has-submenu">
+                        <div class="flex justify-between items-center py-2 px-4 rounded hover:bg-blue-700 cursor-pointer">
+                            <span class="flex items-center">
+                                <i class="fas fa-calendar-alt mr-2"></i> Events
+                            </span>
+                            <i class="fas fa-chevron-down text-xs"></i>
+                        </div>
+                        <ul class="submenu">
+                            <li>
+                                <a href="{% url 'event_list' %}" class="block py-2 px-4 rounded hover:bg-blue-600">
+                                    <i class="fas fa-list mr-2"></i> All Events
+                                </a>
+                            </li>
+                            <li>
+                                <a href="{% url 'event_create' %}" class="block py-2 px-4 rounded hover:bg-blue-600">
+                                    <i class="fas fa-plus mr-2"></i> Create New
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
+                    
+                    <!-- Policies Section with Create -->
+                    <li class="has-submenu">
+                        <div class="flex justify-between items-center py-2 px-4 rounded hover:bg-blue-700 cursor-pointer">
+                            <span class="flex items-center">
+                                <i class="fas fa-file-alt mr-2"></i> Policies
+                            </span>
+                            <i class="fas fa-chevron-down text-xs"></i>
+                        </div>
+                        <ul class="submenu">
+                            <li>
+                                <a href="{% url 'policy_list' %}" class="block py-2 px-4 rounded hover:bg-blue-600">
+                                    <i class="fas fa-list mr-2"></i> All Policies
+                                </a>
+                            </li>
+                            <li>
+                                <a href="{% url 'policy_create' %}" class="block py-2 px-4 rounded hover:bg-blue-600">
+                                    <i class="fas fa-plus mr-2"></i> Create New
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
+                    
+                    <!-- Volunteers Section -->
+                    <li>
+                        <a href="{% url 'volunteer_list' %}" class="flex items-center py-2 px-4 rounded hover:bg-blue-700">
+                            <i class="fas fa-users mr-2"></i> Volunteers
+                        </a>
+                    </li>
+                    
+                    <!-- Contacts Section -->
+                    <li>
+                        <a href="{% url 'contact_list' %}" class="flex items-center py-2 px-4 rounded hover:bg-blue-700">
+                            <i class="fas fa-envelope mr-2"></i> Contacts
+                        </a>
+                    </li>
+                </ul>
+            </nav>
+        </div>
+
+        <!-- Main Content -->
+        <div class="flex-1 overflow-auto">
+            <div class="p-8">
+                {% block admin_content %}
+                <!-- Content will be inserted here by child templates -->
+                {% endblock %}
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Simple JavaScript to toggle submenus
+        document.querySelectorAll('.has-submenu').forEach(item => {
+            item.addEventListener('click', function() {
+                const submenu = this.querySelector('.submenu');
+                const icon = this.querySelector('.fa-chevron-down');
+                
+                if (submenu.style.display === 'block') {
+                    submenu.style.display = 'none';
+                    icon.classList.remove('fa-chevron-up');
+                    icon.classList.add('fa-chevron-down');
+                } else {
+                    submenu.style.display = 'block';
+                    icon.classList.remove('fa-chevron-down');
+                    icon.classList.add('fa-chevron-up');
+                }
+            });
+        });
+    </script>
+</body>
+</html>

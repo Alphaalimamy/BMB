@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    {% load static %}
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}{{ candidate_name }} for {{ position }}{% endblock %}</title>
+    <meta name="description" content="{% block meta_description %}Official campaign website for {{ candidate_name }}, running for {{ position }}. Learn about our policies, events, and how to get involved.{% endblock %}">
+    
+    <!-- Favicon -->
+    <link rel="icon" href="{% static 'images/favicon.ico' %}">
+    
+    
+    <!-- Tailwind CSS -->
+    <link href="{% static 'css/styles.css' %}" rel="stylesheet">
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    
+    {% block extra_css %}{% endblock %}
+</head>
+<body class="flex flex-col min-h-screen bg-gray-50">
+    <!-- Header -->
+    <header class="bg-white shadow-md">
+        <div class="container mx-auto px-4 py-3">
+            <div class="flex justify-between items-center">
+                <!-- Logo -->
+                <div class="flex items-center">
+                    <a href="{% url 'home' %}" class="flex items-center">
+                        <img src="{% static 'images/BMB.png' %}" alt="{{ candidate_name }} Logo" class="h-12 mr-3">
+                        <div>
+                            <h1 class="text-xl font-bold text-blue-800">{{ candidate_name }}</h1>
+                            <p class="text-sm text-red-600">for {{ position }}</p>
+                        </div>
+                    </a>
+                </div>
+                
+                <!-- Mobile Menu Button -->
+                <button id="mobile-menu-button" class="md:hidden text-blue-800">
+                    <i class="fas fa-bars text-2xl"></i>
+                </button>
+                
+                <!-- Desktop Navigation -->
+                <nav class="hidden md:flex space-x-8">
+                    <a href="{% url 'home' %}" class="text-blue-800 hover:text-red-600 font-medium">Home</a>
+                    <a href="{% url 'about' %}" class="text-blue-800 hover:text-red-600 font-medium">About</a>
+                    <a href="{% url 'policies' %}" class="text-blue-800 hover:text-red-600 font-medium">Policies</a>
+                    <a href="{% url 'blog_list' %}" class="text-blue-800 hover:text-red-600 font-medium">Blog</a>
+                    <a href="{% url 'events' %}" class="text-blue-800 hover:text-red-600 font-medium">Events</a>
+                    <a href="{% url 'contact' %}" class="text-blue-800 hover:text-red-600 font-medium">Contact</a>
+                    <a href="{% url 'volunteer' %}" class="bg-red-600 text-white px-4 py-2 rounded-md hover:bg-red-700 font-medium">Volunteer</a>
+                </nav>
+            </div>
+            
+            <!-- Mobile Menu -->
+            <div id="mobile-menu" class="hidden md:hidden mt-4 pb-4">
+                <a href="{% url 'home' %}" class="block py-2 text-blue-800 hover:text-red-600">Home</a>
+                <a href="{% url 'about' %}" class="block py-2 text-blue-800 hover:text-red-600">About</a>
+                <a href="{% url 'policies' %}" class="block py-2 text-blue-800 hover:text-red-600">Policies</a>
+                <a href="{% url 'blog_list' %}" class="block py-2 text-blue-800 hover:text-red-600">Blog</a>
+                <a href="{% url 'events' %}" class="block py-2 text-blue-800 hover:text-red-600">Events</a>
+                <a href="{% url 'volunteer' %}" class="block mt-2 bg-red-600 text-white px-4 py-2 rounded-md hover:bg-red-700 text-center">Volunteer</a>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="flex-grow">
+        {% block content %}{% endblock %}
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-blue-900 text-white py-8">
+        <div class="container mx-auto px-4">
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-8">
+                <div>
+                    <h3 class="text-xl font-bold mb-4">Campaign</h3>
+                    <ul class="space-y-2">
+                        <li><a href="{% url 'about' %}" class="hover:text-red-300">About</a></li>
+                        <li><a href="{% url 'policies' %}" class="hover:text-red-300">Policies</a></li>
+                        <li><a href="{% url 'blog_list' %}" class="hover:text-red-300">Blog</a></li>
+                        <li><a href="{% url 'events' %}" class="hover:text-red-300">Events</a></li>
+                        <li><a href="{% url 'contact' %}" class="hover:text-red-300">Contact</a></li>
+                    </ul>
+                </div>
+                
+                <div>
+                    <h3 class="text-xl font-bold mb-4">Get Involved</h3>
+                    <ul class="space-y-2">
+                        <li><a href="{% url 'volunteer' %}" class="hover:text-red-300">Volunteer</a></li>
+                        <li><a href="#" class="hover:text-red-300">Donate</a></li>
+                        <li><a href="#" class="hover:text-red-300">Host an Event</a></li>
+                        <li><a href="#" class="hover:text-red-300">Endorsements</a></li>
+                    </ul>
+                </div>
+                
+                <div>
+                    <h3 class="text-xl font-bold mb-4">Connect</h3>
+                    <div class="flex space-x-4 mb-4">
+                        <a href="#" class="text-2xl hover:text-red-300"><i class="fab fa-facebook"></i></a>
+                        <a href="#" class="text-2xl hover:text-red-300"><i class="fab fa-twitter"></i></a>
+                        <a href="#" class="text-2xl hover:text-red-300"><i class="fab fa-instagram"></i></a>
+                        <a href="#" class="text-2xl hover:text-red-300"><i class="fab fa-youtube"></i></a>
+                    </div>
+                    <p>Email: <a href="mailto:info@example.com" class="hover:text-red-300">{{ campaign_email }}</a></p>
+                    <p>Phone: <a href="tel:+1234567890" class="hover:text-red-300">{{ campaign_phone }}</a></p>
+                </div>
+                
+                <div>
+                    <h3 class="text-xl font-bold mb-4">Stay Updated</h3>
+                    <form class="space-y-2">
+                        <input type="email" placeholder="Your email" class="w-full px-3 py-2 rounded text-gray-800">
+                        <button type="submit" class="bg-red-600 hover:bg-red-700 text-white px-4 py-2 rounded w-full">Subscribe</button>
+                    </form>
+                </div>
+            </div>
+            
+            <div class="border-t border-blue-800 mt-8 pt-6 text-center text-sm">
+                <p>&copy; {% now "Y" %} {{ candidate_name }} for {{ position }}. All rights reserved.</p>
+                <p class="mt-2">
+                    <a href="#" class="hover:text-red-300">Privacy Policy</a> | 
+                    <a href="#" class="hover:text-red-300">Terms of Service</a>
+                </p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Scripts -->
+    <script src="{% static 'js/main.js' %}"></script>
+    {% block extra_js %}{% endblock %}
+</body>
+
+<script>
+    document.getElementById('mobile-menu-button').addEventListener('click', function () {
+        const menu = document.getElementById('mobile-menu');
+        menu.classList.toggle('hidden');
+    });
+</script>
+
+
+</html>

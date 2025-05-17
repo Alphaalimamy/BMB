@@ -1,0 +1,62 @@
+
+{% extends "base.html" %}
+
+{% block title %}Campaign Blog - {{ candidate_name }} for {{ position }}{% endblock %}
+{% block meta_description %}Stay updated with the latest news and updates from the {{ candidate_name }} campaign for {{ position }}.{% endblock %}
+
+{% block content %}
+<section class="py-16 bg-gray-50">
+    <div class="container mx-auto px-4">
+        <div class="text-center mb-12">
+            <h1 class="text-4xl font-bold text-blue-800">Campaign Blog</h1>
+            <p class="text-xl text-gray-600 mt-4">News, updates, and insights from the campaign trail</p>
+        </div>
+        
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+            {% for post in posts %}
+            <div class="bg-white rounded-lg shadow-md overflow-hidden hover:shadow-lg transition-shadow">
+                {% if post.featured_image %}
+                <img src="{{ post.featured_image.url }}" alt="{{ post.title }}" class="w-full h-48 object-cover">
+                {% endif %}
+                <div class="p-6">
+                    <span class="text-sm text-gray-500">{{ post.published_at|date:"F j, Y" }}</span>
+                    <h2 class="text-xl font-bold text-blue-800 my-2">{{ post.title }}</h2>
+                    <p class="text-gray-700 mb-4">{{ post.excerpt }}</p>
+                    <a href="{% url 'blog_detail' post.slug %}" class="text-red-600 hover:text-red-700 font-medium">Read more →</a>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+        
+        {% if is_paginated %}
+        <div class="mt-10 flex justify-center">
+            <nav class="inline-flex rounded-md shadow">
+                {% if page_obj.has_previous %}
+                <a href="?page={{ page_obj.previous_page_number }}" class="px-4 py-2 rounded-l-md border border-gray-300 bg-white text-blue-800 hover:bg-gray-50">
+                    Previous
+                </a>
+                {% endif %}
+                
+                {% for num in page_obj.paginator.page_range %}
+                {% if page_obj.number == num %}
+                <span class="px-4 py-2 border-t border-b border-gray-300 bg-blue-800 text-white">
+                    {{ num }}
+                </span>
+                {% elif num > page_obj.number|add:'-3' and num < page_obj.number|add:'3' %}
+                <a href="?page={{ num }}" class="px-4 py-2 border-t border-b border-gray-300 bg-white text-blue-800 hover:bg-gray-50">
+                    {{ num }}
+                </a>
+                {% endif %}
+                {% endfor %}
+                
+                {% if page_obj.has_next %}
+                <a href="?page={{ page_obj.next_page_number }}" class="px-4 py-2 rounded-r-md border border-gray-300 bg-white text-blue-800 hover:bg-gray-50">
+                    Next
+                </a>
+                {% endif %}
+            </nav>
+        </div>
+        {% endif %}
+    </div>
+</section>
+{% endblock %}

@@ -1,0 +1,23 @@
+{% extends "campaign/base.html" %}
+{% load crispy_forms_tags %}
+
+{% block content %}
+<section class="py-16 bg-gray-50">
+    <div class="container mx-auto px-4">
+        <div class="max-w-3xl mx-auto bg-white p-8 rounded-lg shadow-md">
+            <h1 class="text-3xl font-bold text-blue-800 mb-6">Create New Blog Post</h1>
+            
+            <form method="post" enctype="multipart/form-data">
+                {% csrf_token %}
+                {{ form|crispy }}
+                
+                <div class="mt-6 flex justify-end">
+                    <button type="submit" class="bg-blue-800 hover:bg-blue-900 text-white px-6 py-2 rounded-md font-medium">
+                        Publish Post
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+</section>
+{% endblock %}

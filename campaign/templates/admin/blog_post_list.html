@@ -1,0 +1,50 @@
+{% extends "admin/base_admin.html" %}
+
+{% block admin_content %}
+<div class="bg-white p-6 rounded-lg shadow-md">
+    <div class="flex justify-between items-center mb-6">
+        <h1 class="text-2xl font-bold text-red-800">Blog Posts</h1>
+        <a href="{% url 'blog_post_create' %}" class="bg-blue-800 hover:bg-blue-900 text-white px-4 py-2 rounded-md">
+            <i class="fas fa-plus mr-2"></i> New Post
+        </a>
+    </div>
+    
+    <div class="overflow-x-auto">
+        <table class="min-w-full bg-white">
+            <thead>
+                <tr class="bg-gray-100">
+                    <th class="py-3 px-4 text-left">Title</th>
+                    <th class="py-3 px-4 text-left">Author</th>
+                    <th class="py-3 px-4 text-left">Published</th>
+                    <th class="py-3 px-4 text-left">Status</th>
+                    <th class="py-3 px-4 text-left">Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for post in posts %}
+                <tr class="border-t border-gray-200 hover:bg-gray-50">
+                    <td class="py-3 px-4">{{ post.title }}</td>
+                    <td class="py-3 px-4">{{ post.author }}</td>
+                    <td class="py-3 px-4">{{ post.published_at|date:"M d, Y"|default:"-" }}</td>
+                    <td class="py-3 px-4">
+                        <span class="px-2 py-1 rounded-full text-xs {% if post.is_published %}bg-green-100 text-green-800{% else %}bg-yellow-100 text-yellow-800{% endif %}">
+                            {% if post.is_published %}Published{% else %}Draft{% endif %}
+                        </span>
+                    </td>
+                    <td class="py-3 px-4">
+                        <div class="flex space-x-2">
+                            <a href="{% url 'blog_post_edit' post.slug %}" class="text-blue-600 hover:text-blue-800">
+                                <i class="fas fa-edit"></i>
+                            </a>
+                            <a href="{% url 'blog_post_delete' post.slug %}" class="text-red-600 hover:text-red-800">
+                                <i class="fas fa-trash"></i>
+                            </a>
+                        </div>
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+{% endblock %}
